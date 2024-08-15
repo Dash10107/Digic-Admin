@@ -3,6 +3,7 @@ import CustomInput from "../components/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { GetColorName } from 'hex-color-to-color-name';
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -55,11 +56,14 @@ const Addcolor = () => {
     validationSchema: schema,
     onSubmit: (values) => {
       if (getColorId !== undefined) {
-        const data = { id: getColorId, colorData: values };
+        let color = GetColorName(values.title);
+        const data = { id: getColorId, colorData: { title: color } };
         dispatch(updateAColor(data));
         dispatch(resetState());
       } else {
-        dispatch(createColor(values));
+        let color = GetColorName(values.title);
+        dispatch(createColor({title: color}));
+        // dispatch(createColor(values));
         formik.resetForm();
         setTimeout(() => {
           dispatch(resetState());

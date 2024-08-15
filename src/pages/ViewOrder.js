@@ -48,18 +48,20 @@ const ViewOrder = () => {
   useEffect(() => {
     dispatch(getOrderByUser(userId));
   }, []);
-  const orderState = useSelector((state) => state.auth.orderbyuser[0].products);
-  console.log(orderState);
+  const orderState = useSelector((state) => state.auth?.orderbyuser);
+  console.log('ordersate',orderState);
   const data1 = [];
-  for (let i = 0; i < orderState.length; i++) {
+  for (let i = 0; i < orderState?.length; i++) {
+      for (let j = 0; j < orderState[i]?.orderItems?.length; j++) {
     data1.push({
-      key: i + 1,
-      name: orderState[i].product.title,
-      brand: orderState[i].product.brand,
-      count: orderState[i].count,
-      amount: orderState[i].product.price,
-      color: orderState[i].product.color,
-      date: orderState[i].product.createdAt,
+      key: j + 1,
+      name: orderState[i]?.orderItems[j]?.title ? orderState[i]?.orderItems[j]?.title : orderState[i]?.orderItems[j]?._id,
+      brand: orderState[i]?.orderItems[j]?.brand,
+      count: orderState[i]?.orderItems[j]?.quantity,
+      color: orderState[i]?.orderItems[j]?.color,
+      amount: orderState[i]?.orderItems[j]?.price,
+      date: new Date(orderState[i].createdAt).toLocaleString(),
+      
       action: (
         <>
           <Link to="/" className=" fs-3 text-danger">
@@ -71,6 +73,7 @@ const ViewOrder = () => {
         </>
       ),
     });
+  }
   }
   return (
     <div>

@@ -33,7 +33,7 @@ const Addproduct = () => {
   const navigate = useNavigate();
   const [color, setColor] = useState([]);
   const [images, setImages] = useState([]);
-  console.log(color);
+
   useEffect(() => {
     dispatch(getBrands());
     dispatch(getCategories());
@@ -58,7 +58,7 @@ const Addproduct = () => {
   colorState.forEach((i) => {
     coloropt.push({
       label: i.title,
-      value: i._id,
+      value: i.title,
     });
   });
   const img = [];
@@ -87,7 +87,8 @@ const Addproduct = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(createProducts(values));
+       dispatch(createProducts(values));
+     
       formik.resetForm();
       setColor(null);
       setTimeout(() => {
