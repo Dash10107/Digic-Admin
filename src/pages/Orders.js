@@ -39,7 +39,7 @@ const Orders = () => {
     dispatch(getOrders());
   }, []);
   const orderState = useSelector((state) => state.auth?.orders);
-  console.log('orderState', orderState);
+  // console.log('orderState', orderState);
   
 
   const data1 = [];
@@ -48,7 +48,7 @@ const Orders = () => {
       key: i + 1,
       name: orderState[i]?.user?.firstname + " " +  orderState[i]?.user?.lastname,
       product: (
-        <Link to={`/admin/order/${orderState[i]?.user?._id}`}>
+        <Link to={`/admin/order/${orderState[i]?.user?._id}/${orderState[i]?._id}`}>
           View Orders
         </Link>
       ),

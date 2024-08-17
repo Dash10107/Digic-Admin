@@ -45,7 +45,7 @@ function App() {
           <Route path="blog-category" element={<Addblogcat />} />
           <Route path="blog-category/:id" element={<Addblogcat />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="order/:id" element={<ViewOrder />} />
+          <Route path="order/:userId/:orderId" element={<ViewOrder />} />
           <Route path="customers" element={<Customers />} />
           <Route path="list-color" element={<Colorlist />} />
           <Route path="color" element={<Addcolor />} />

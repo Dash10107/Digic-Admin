@@ -3,7 +3,7 @@ import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getOrderByUser, getOrders } from "../features/auth/authSlice";
 const columns = [
   {
@@ -14,10 +14,10 @@ const columns = [
     title: "Product Name",
     dataIndex: "name",
   },
-  {
-    title: "Brand",
-    dataIndex: "brand",
-  },
+  // {
+  //   title: "Brand",
+  //   dataIndex: "brand",
+  // },
   {
     title: "Count",
     dataIndex: "count",
@@ -42,8 +42,7 @@ const columns = [
 ];
 
 const ViewOrder = () => {
-  const location = useLocation();
-  const userId = location.pathname.split("/")[3];
+  const {userId,orderId} = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrderByUser(userId));
@@ -52,6 +51,7 @@ const ViewOrder = () => {
   console.log('ordersate',orderState);
   const data1 = [];
   for (let i = 0; i < orderState?.length; i++) {
+    if(orderState[i]?._id === orderId){
       for (let j = 0; j < orderState[i]?.orderItems?.length; j++) {
     data1.push({
       key: j + 1,
@@ -74,6 +74,9 @@ const ViewOrder = () => {
       ),
     });
   }
+}else{
+  console.log('no order');
+}
   }
   return (
     <div>
